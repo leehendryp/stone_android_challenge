@@ -1,0 +1,2 @@
+rootProject.name='Stone Android Challenge'
+include ':app'
