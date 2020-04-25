@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="InvalidPackage">
+        <ignore regexp="X509LDAPCertStoreSpi" />
+    </issue>
+</lint><!--
+One of the classes in the Bouncy Castle library (which handles all the actual crypto for JPGPJ)
+uses a standard J2SE package (javax.naming.directory) that's not included in Android. Fortunately,
+this class (X509LDAPCertStoreSpi) isn't PGP-related, so the runtime won't try to load it during
+normal JPGPJ use.
+
+Reference: https://github.com/justinludwig/jpgpj/issues/3
+-->
