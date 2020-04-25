@@ -19,12 +19,9 @@ android {
         dataBinding.enabled = true
         viewBinding.enabled = true
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [
-                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
-                        "room.incremental"     : "true",
-                        "room.expandProjection": "true"]
+        kapt {
+            arguments {
+                arg("room.incremental", "true")
             }
         }
     }
@@ -43,6 +40,10 @@ android {
 
     kotlinOptions {
         jvmTarget = rootProject.jvmTarget
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
