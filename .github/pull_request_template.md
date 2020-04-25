@@ -4,7 +4,7 @@
 - Include relevant motivation and context; and
 - List any dependencies that are required for this change run.
 
-Closes issue # (issue)
+Closes # (issue)
 
 # What device was it tested on?
 
