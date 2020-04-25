@@ -53,8 +53,9 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlinVersion"
 
-    // RxKotlin
+    // Rx
     implementation "io.reactivex.rxjava3:rxkotlin:$rootProject.rxKotlinVersion"
+    implementation "io.reactivex.rxjava3:rxandroid:$rootProject.rxAndroidVersion"
 
     // Android
     implementation "com.google.android.material:material:$rootProject.materialVersion"
