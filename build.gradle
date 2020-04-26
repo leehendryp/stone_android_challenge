@@ -25,7 +25,7 @@ buildscript {
         lifecycleVersion = "2.2.0"
 
         retrofitVersion = "2.6.0"
-        retrofitCoroutinesVersion = "0.9.2"
+        retrofitRxJava3AdapterVersion = "3.0.0"
         retrofitGsonVersion = "2.4.0"
 
         daggerVersion = "2.26"

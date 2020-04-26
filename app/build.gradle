@@ -77,7 +77,7 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofitVersion"
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$rootProject.retrofitRxJava3AdapterVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitGsonVersion"
 
     // Dagger
