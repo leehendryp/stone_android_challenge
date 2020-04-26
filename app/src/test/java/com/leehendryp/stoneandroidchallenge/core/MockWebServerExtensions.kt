@@ -6,6 +6,7 @@ import com.leehendryp.stoneandroidchallenge.core.ResponseType.SERVER_ERROR
 import com.leehendryp.stoneandroidchallenge.core.ResponseType.SUCCESS
 import com.squareup.okhttp.mockwebserver.MockResponse
 import com.squareup.okhttp.mockwebserver.MockWebServer
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 fun MockWebServer.createRetrofitInstance(): Retrofit = Retrofit.Builder()
     .addConverterFactory(GsonConverterFactory.create())
     .client(OkHttpClient.Builder().build())
+    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
     .baseUrl(this.url("/").toString())
     .build()
 
@@ -25,7 +27,7 @@ fun MockWebServer.setResponse(type: ResponseType) {
     }
 }
 
-private fun MockWebServer.setResponse(httpCode: Int) = with(MockResponse()) {
+fun MockWebServer.setResponse(httpCode: Int) = with(MockResponse()) {
     setResponseCode(httpCode)
     setResponseBodyFrom(httpCode)
     enqueue(this)
