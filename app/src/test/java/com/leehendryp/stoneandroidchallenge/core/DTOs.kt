@@ -4,7 +4,7 @@ import com.leehendryp.stoneandroidchallenge.feed.data.entities.JokeResponse
 import com.leehendryp.stoneandroidchallenge.feed.data.entities.ResultResponse
 
 object DTOs {
-    private val jokeOneResponse = JokeResponse(
+    val jokeOneResponse = JokeResponse(
         categories = listOf(),
         createdAt = "2020-01-05 13:42:20.262289",
         iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
@@ -14,7 +14,7 @@ object DTOs {
         value = "Chuck Norris once got a 500 in bowling. Without a ball. Or pins. Or oxygen."
     )
 
-    private val jokeTwoResponse = JokeResponse(
+    val jokeTwoResponse = JokeResponse(
         categories = listOf(),
         createdAt = "2020-01-05 13:42:21.795084",
         iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
@@ -24,7 +24,7 @@ object DTOs {
         value = "Oxygen requires Chuck Norris to live"
     )
 
-    private val jokeThreeResponse = JokeResponse(
+    val jokeThreeResponse = JokeResponse(
         categories = listOf(),
         createdAt = "2020-01-05 13:42:24.142371",
         iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
