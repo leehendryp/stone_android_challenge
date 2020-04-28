@@ -5,7 +5,6 @@ import com.leehendryp.stoneandroidchallenge.core.DTOs
 import com.leehendryp.stoneandroidchallenge.core.RxUnitTest
 import com.leehendryp.stoneandroidchallenge.feed.data.local.database.RoomJokeDao
 import com.leehendryp.stoneandroidchallenge.feed.data.toJoke
-import com.leehendryp.stoneandroidchallenge.feed.data.toRoomJoke
 import io.mockk.every
 import io.mockk.spyk
 import io.reactivex.Completable
@@ -51,24 +50,14 @@ class LocalDataSourceImplTest : RxUnitTest() {
 
     @Test
     fun `should emit jokes upon successful search in database`() {
-        val jokeOne = DTOs.jokeOneResponse.toJoke()
-        val jokeTwo = DTOs.jokeTwoResponse.toJoke()
-        val jokeThree = DTOs.jokeThreeResponse.toJoke()
-
-        val jokes = listOf(jokeOne, jokeTwo, jokeThree)
-
-        every { dao.search(any()) } returns Flowable.just(
-            jokeOne.toRoomJoke(),
-            jokeTwo.toRoomJoke(),
-            jokeThree.toRoomJoke()
-        )
+        every { dao.search(any()) } returns DTOs.roomJokeFlowable
 
         localSource.search("")
             .test()
             .assertComplete()
             .assertNoErrors()
             .values()
-            .containsAll(jokes)
+            .containsAll(DTOs.jokes)
     }
 
     @Test
