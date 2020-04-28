@@ -21,6 +21,7 @@ buildscript {
 
         databindingVersion = "3.3.2"
         roomVersion = "2.2.5"
+        rxJava3BridgeVersion = "3.0.0"
         navigationVersion = "2.2.2"
         lifecycleVersion = "2.2.0"
 
