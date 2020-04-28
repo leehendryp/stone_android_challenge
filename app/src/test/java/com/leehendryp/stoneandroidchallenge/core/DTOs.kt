@@ -2,6 +2,9 @@ package com.leehendryp.stoneandroidchallenge.core
 
 import com.leehendryp.stoneandroidchallenge.feed.data.entities.JokeResponse
 import com.leehendryp.stoneandroidchallenge.feed.data.entities.ResultResponse
+import com.leehendryp.stoneandroidchallenge.feed.data.toJoke
+import com.leehendryp.stoneandroidchallenge.feed.data.toRoomJoke
+import io.reactivex.rxjava3.core.Flowable
 
 object DTOs {
     val jokeOneResponse = JokeResponse(
@@ -14,7 +17,7 @@ object DTOs {
         value = "Chuck Norris once got a 500 in bowling. Without a ball. Or pins. Or oxygen."
     )
 
-    val jokeTwoResponse = JokeResponse(
+    private val jokeTwoResponse = JokeResponse(
         categories = listOf(),
         createdAt = "2020-01-05 13:42:21.795084",
         iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
@@ -24,7 +27,7 @@ object DTOs {
         value = "Oxygen requires Chuck Norris to live"
     )
 
-    val jokeThreeResponse = JokeResponse(
+    private val jokeThreeResponse = JokeResponse(
         categories = listOf(),
         createdAt = "2020-01-05 13:42:24.142371",
         iconUrl = "https://assets.chucknorris.host/img/avatar/chuck-norris.png",
@@ -50,5 +53,23 @@ object DTOs {
     val incorrectResultResponse = ResultResponse(
         jokeList = incorrectJokeResponses,
         total = incorrectJokeResponses.size
+    )
+
+    val jokes = listOf(
+        jokeOneResponse.toJoke(),
+        jokeTwoResponse.toJoke(),
+        jokeThreeResponse.toJoke()
+    )
+
+    val roomJokeFlowable = io.reactivex.Flowable.just(
+        jokeOneResponse.toJoke().toRoomJoke(),
+        jokeTwoResponse.toJoke().toRoomJoke(),
+        jokeThreeResponse.toJoke().toRoomJoke()
+    )
+
+    val jokeFlowable = Flowable.just(
+        jokeOneResponse.toJoke(),
+        jokeTwoResponse.toJoke(),
+        jokeThreeResponse.toJoke()
     )
 }
