@@ -4,6 +4,7 @@ import com.leehendryp.stoneandroidchallenge.feed.data.entities.JokeResponse
 import com.leehendryp.stoneandroidchallenge.feed.data.entities.ResultResponse
 import com.leehendryp.stoneandroidchallenge.feed.data.toJoke
 import com.leehendryp.stoneandroidchallenge.feed.data.toRoomJoke
+import com.leehendryp.stoneandroidchallenge.feed.domain.model.Joke
 import io.reactivex.rxjava3.core.Flowable
 
 object DTOs {
@@ -67,7 +68,7 @@ object DTOs {
         jokeThreeResponse.toJoke().toRoomJoke()
     )
 
-    val jokeFlowable = Flowable.just(
+    val jokeFlowable: Flowable<Joke> = Flowable.just(
         jokeOneResponse.toJoke(),
         jokeTwoResponse.toJoke(),
         jokeThreeResponse.toJoke()
