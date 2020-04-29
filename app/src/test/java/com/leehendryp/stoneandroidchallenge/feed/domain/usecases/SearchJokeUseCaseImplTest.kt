@@ -23,10 +23,7 @@ class SearchJokeUseCaseImplTest : RxUnitTest() {
     @Before
     fun `set up`() {
         repository = mockk()
-        useCase =
-            SearchJokeUseCaseImpl(
-                repository
-            )
+        useCase = SearchJokeUseCaseImpl(repository)
     }
 
     @Test
@@ -51,6 +48,6 @@ class SearchJokeUseCaseImplTest : RxUnitTest() {
         useCase.execute("")
             .test()
             .assertNotComplete()
-            .assertError { it == error }
+            .assertError(error)
     }
 }
