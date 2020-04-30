@@ -1,8 +1,10 @@
 package com.leehendryp.stoneandroidchallenge.core.extensions
 
 import hu.akarnokd.rxjava3.bridge.RxJavaBridge
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 // FIXME Lee April 27, 2020: as of now, there's not Room integration with RxJava3
@@ -20,3 +22,9 @@ fun Completable.subscribeOnIO(): Completable =
 
 fun <T : Any> Flowable<out T>.subscribeOnIO(): Flowable<out T> =
     subscribeOn(Schedulers.io())
+
+fun <T : Any> Maybe<out T>.subscribeOnIO(): Maybe<out T> =
+    subscribeOn(Schedulers.io())
+
+fun <T : Any> Maybe<out T>.observeOnMain(): Maybe<out T> =
+    observeOn(AndroidSchedulers.mainThread())
