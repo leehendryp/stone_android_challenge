@@ -1,7 +1,7 @@
 package com.leehendryp.stoneandroidchallenge.core
 
-import io.reactivex.plugins.RxJavaPlugins
-import io.reactivex.schedulers.TestScheduler
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import io.reactivex.rxjava3.schedulers.TestScheduler
 import org.junit.Rule
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
