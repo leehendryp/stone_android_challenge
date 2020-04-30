@@ -13,6 +13,7 @@ import io.mockk.spyk
 import io.mockk.verifyOrder
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -21,6 +22,7 @@ class FeedViewModelTest : RxUnitTest() {
     @get:Rule
     val taskExecutorRule = InstantTaskExecutorRule()
 
+    private lateinit var compositeDisposable: CompositeDisposable
     private lateinit var searchJokeUseCase: SearchJokeUseCase
     private lateinit var viewModel: FeedViewModel
 
@@ -29,7 +31,8 @@ class FeedViewModelTest : RxUnitTest() {
     @Before
     fun `set up`() {
         searchJokeUseCase = spyk()
-        viewModel = FeedViewModel(searchJokeUseCase)
+        compositeDisposable = spyk()
+        viewModel = FeedViewModel(compositeDisposable, searchJokeUseCase)
         initStateObserver()
     }
 
