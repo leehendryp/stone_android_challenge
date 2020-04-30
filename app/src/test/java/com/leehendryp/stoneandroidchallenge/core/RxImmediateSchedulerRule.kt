@@ -6,11 +6,11 @@ import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.internal.schedulers.ExecutorScheduler.ExecutorWorker
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import java.util.concurrent.Executor
+import java.util.concurrent.TimeUnit
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
-import java.util.concurrent.Executor
-import java.util.concurrent.TimeUnit
 
 class RxImmediateSchedulerRule : TestRule {
     private val immediateScheduler = object : Scheduler() {
