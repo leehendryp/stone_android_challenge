@@ -1,12 +1,11 @@
 package com.leehendryp.stoneandroidchallenge.feed.data.remote
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.leehendryp.stoneandroidchallenge.core.BadRequestException
 import com.leehendryp.stoneandroidchallenge.core.DTOs
-import com.leehendryp.stoneandroidchallenge.core.NotFoundException
+import com.leehendryp.stoneandroidchallenge.core.MyBadException
 import com.leehendryp.stoneandroidchallenge.core.ResponseType.SUCCESS
 import com.leehendryp.stoneandroidchallenge.core.RxUnitTest
-import com.leehendryp.stoneandroidchallenge.core.UnauthorizedException
+import com.leehendryp.stoneandroidchallenge.core.ServiceInstabilityException
 import com.leehendryp.stoneandroidchallenge.core.createRetrofitInstance
 import com.leehendryp.stoneandroidchallenge.core.setResponse
 import com.squareup.okhttp.mockwebserver.MockWebServer
@@ -52,33 +51,23 @@ class RemoteDataSourceImplTest : RxUnitTest() {
     }
 
     @Test
-    fun `should emit BadRequestException upon bad request to API`() {
+    fun `should emit MyBadException upon improper request to API`() {
         apiServer.setResponse(400)
 
         remoteDataSource.search("")
             .test()
             .assertNotComplete()
-            .assertError { it is BadRequestException }
+            .assertError { it is MyBadException }
     }
 
     @Test
-    fun `should emit UnauthorizedException upon failed request to API`() {
-        apiServer.setResponse(401)
+    fun `should emit ServiceInstabilityException upon API instability`() {
+        apiServer.setResponse(500)
 
         remoteDataSource.search("")
             .test()
             .assertNotComplete()
-            .assertError { it is UnauthorizedException }
-    }
-
-    @Test
-    fun `should emit NotFoundException upon failed request to API`() {
-        apiServer.setResponse(404)
-
-        remoteDataSource.search("")
-            .test()
-            .assertNotComplete()
-            .assertError { it is NotFoundException }
+            .assertError { it is ServiceInstabilityException }
     }
 
     @After
