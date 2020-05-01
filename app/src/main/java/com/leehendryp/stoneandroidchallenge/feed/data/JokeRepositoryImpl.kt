@@ -7,6 +7,7 @@ import com.leehendryp.stoneandroidchallenge.feed.domain.JokeRepository
 import com.leehendryp.stoneandroidchallenge.feed.domain.model.Joke
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class JokeRepositoryImpl @Inject constructor(
@@ -31,6 +32,7 @@ class JokeRepositoryImpl @Inject constructor(
 
     private fun localSearch(query: String): Maybe<List<Joke>> {
         return localSource.search(query)
+            .timeout(10, TimeUnit.SECONDS)
             .onBackpressureBuffer(BUFFER_CAPACITY)
             .toList()
             .flatMapMaybe { Maybe.just(it) }
