@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface JokesApi {
     companion object {
-        const val JOKES_API = "https://api.chucknorris.io/"
+        const val BASE_URL = "https://api.chucknorris.io/"
         private const val ENDPOINT = "jokes/search"
     }
 
