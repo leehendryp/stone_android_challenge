@@ -120,7 +120,7 @@ class FeedFragment : BaseFragment(), FreeTextSearcher {
     private fun clearFeed() = feedAdapter.clearList()
 
     private fun updateFeed(state: Success) {
-        with (state.data) {
+        with(state.data) {
             if (this.isEmpty()) showNoResultDialog()
 
             feedAdapter.update(this.toSet())
