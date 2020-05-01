@@ -16,6 +16,7 @@ import com.leehendryp.stoneandroidchallenge.core.BadRequestException
 import com.leehendryp.stoneandroidchallenge.core.MainActivity
 import com.leehendryp.stoneandroidchallenge.core.NotFoundException
 import com.leehendryp.stoneandroidchallenge.core.RequestTimeoutException
+import com.leehendryp.stoneandroidchallenge.core.StoneChallengeApplication
 import com.leehendryp.stoneandroidchallenge.core.UnauthorizedException
 import com.leehendryp.stoneandroidchallenge.core.extensions.observeOnMain
 import com.leehendryp.stoneandroidchallenge.core.extensions.subscribeOnIO
@@ -57,8 +58,17 @@ class FeedFragment : Fragment(), FreeTextSearcher {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity as MainActivity).freeTextSearcher = this
+        injectDependencies()
+        setUpFreeTextSearcher()
         initRecyclerView()
+    }
+
+    private fun setUpFreeTextSearcher() {
+        (activity as MainActivity).freeTextSearcher = this
+    }
+
+    private fun injectDependencies() {
+        (activity?.application as StoneChallengeApplication).appComponent.inject(this)
     }
 
     private fun initRecyclerView() {
