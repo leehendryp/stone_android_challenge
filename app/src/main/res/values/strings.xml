@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Stone Android Challenge</string>
+    <string name="feed_share_button">Share button</string>
+    <string name="app_title">Chuck Norris Facts</string>
+    <string name="item_category_label_uncategorized">Uncategorized</string>
+    <string name="generic_error">An error occurred. Please, try again.</string>
+    <string name="no_connection_error">Please, check your internet connection and try again.</string>
 </resources>
