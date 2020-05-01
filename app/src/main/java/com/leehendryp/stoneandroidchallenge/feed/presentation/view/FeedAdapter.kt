@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.leehendryp.stoneandroidchallenge.R
-import com.leehendryp.stoneandroidchallenge.core.utils.toDp
 import com.leehendryp.stoneandroidchallenge.feed.domain.model.Joke
 import kotlinx.android.synthetic.main.item_feed.view.text_joke_category
 import kotlinx.android.synthetic.main.item_feed.view.text_joke_value
@@ -58,8 +57,8 @@ class FeedAdapter(
         }
 
         private fun getProperTextSizeFrom(joke: Joke): Float {
-            return if (joke.value.length <= MAX_LENGTH) 16f.toDp(context)
-            else 24f.toDp(context)
+            return if (joke.value.length <= MAX_LENGTH) 24f
+            else 16f
         }
 
         private fun getLabelFrom(joke: Joke): String {
