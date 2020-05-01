@@ -1,7 +1,6 @@
 package com.leehendryp.stoneandroidchallenge.feed.domain.usecases
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.leehendryp.stoneandroidchallenge.core.BadRequestException
 import com.leehendryp.stoneandroidchallenge.core.DTOs
 import com.leehendryp.stoneandroidchallenge.core.RxUnitTest
 import com.leehendryp.stoneandroidchallenge.feed.data.toJokeList
@@ -41,7 +40,7 @@ class SearchJokeUseCaseImplTest : RxUnitTest() {
 
     @Test
     fun `should return error from failed repository data fetch attempt`() {
-        val error = BadRequestException("")
+        val error = Throwable()
 
         every { repository.search(any()) } returns Maybe.error(error)
 
