@@ -11,21 +11,21 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.leehendryp.stoneandroidchallenge.core.MainActivity
 import com.leehendryp.stoneandroidchallenge.R
 import com.leehendryp.stoneandroidchallenge.core.BadRequestException
+import com.leehendryp.stoneandroidchallenge.core.MainActivity
 import com.leehendryp.stoneandroidchallenge.core.NotFoundException
 import com.leehendryp.stoneandroidchallenge.core.RequestTimeoutException
 import com.leehendryp.stoneandroidchallenge.core.UnauthorizedException
 import com.leehendryp.stoneandroidchallenge.core.extensions.observeOnMain
 import com.leehendryp.stoneandroidchallenge.core.extensions.subscribeOnIO
 import com.leehendryp.stoneandroidchallenge.databinding.FragmentFeedBinding
+import com.leehendryp.stoneandroidchallenge.feed.presentation.FreeTextSearcher
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Error
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Loading
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Success
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedViewModel
-import com.leehendryp.stoneandroidchallenge.feed.presentation.FreeTextSearcher
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import java.net.UnknownHostException
@@ -45,7 +45,8 @@ class FeedFragment : Fragment(), FreeTextSearcher {
     lateinit var compositeDisposable: CompositeDisposable
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
