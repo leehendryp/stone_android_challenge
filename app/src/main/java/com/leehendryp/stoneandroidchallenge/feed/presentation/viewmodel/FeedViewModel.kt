@@ -18,7 +18,10 @@ class FeedViewModel @Inject constructor(
     private val searchJokeUseCase: SearchJokeUseCase
 ) : ViewModel() {
 
-    val state by lazy { BehaviorSubject.create<FeedState>().apply { onNext(Default) } }
+    val state: BehaviorSubject<FeedState> by lazy {
+        BehaviorSubject.create<FeedState>()
+            .apply { onNext(Default) }
+    }
 
     fun search(query: String) {
         compositeDisposable.add(
