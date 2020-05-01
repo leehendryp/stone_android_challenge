@@ -4,22 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.leehendryp.stoneandroidchallenge.R
-import com.leehendryp.stoneandroidchallenge.core.BadRequestException
+import com.leehendryp.stoneandroidchallenge.core.BaseFragment
 import com.leehendryp.stoneandroidchallenge.core.MainActivity
-import com.leehendryp.stoneandroidchallenge.core.NotFoundException
-import com.leehendryp.stoneandroidchallenge.core.RequestTimeoutException
+import com.leehendryp.stoneandroidchallenge.core.MyBadException
+import com.leehendryp.stoneandroidchallenge.core.ServiceInstabilityException
 import com.leehendryp.stoneandroidchallenge.core.StoneChallengeApplication
-import com.leehendryp.stoneandroidchallenge.core.UnauthorizedException
+import com.leehendryp.stoneandroidchallenge.core.extensions.fadeIn
 import com.leehendryp.stoneandroidchallenge.core.extensions.observeOnMain
 import com.leehendryp.stoneandroidchallenge.core.extensions.subscribeOnIO
+import com.leehendryp.stoneandroidchallenge.core.extensions.vanish
 import com.leehendryp.stoneandroidchallenge.databinding.FragmentFeedBinding
 import com.leehendryp.stoneandroidchallenge.feed.presentation.FreeTextSearcher
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState
@@ -29,14 +27,14 @@ import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedStat
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import java.net.UnknownHostException
+import java.io.IOException
+import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 
-class FeedFragment : Fragment(), FreeTextSearcher {
+class FeedFragment : BaseFragment(), FreeTextSearcher {
     private lateinit var binding: FragmentFeedBinding
 
     private lateinit var feedAdapter: FeedAdapter
-    private lateinit var recyclerView: RecyclerView
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -80,9 +78,9 @@ class FeedFragment : Fragment(), FreeTextSearcher {
             )
         }
 
-        recyclerView = binding.listJokes.apply {
-            layoutManager = LinearLayoutManager(context)
+        binding.listJokes.apply {
             adapter = feedAdapter
+            layoutManager = LinearLayoutManager(context)
         }
     }
 
@@ -111,39 +109,40 @@ class FeedFragment : Fragment(), FreeTextSearcher {
         }
     }
 
+    private fun toggleLoading(state: FeedState) {
+        val animDuration: Long = 700
+
+        binding.containerLoadingWheel.apply {
+            if (state == Loading) fadeIn(animDuration) else vanish(animDuration)
+        }
+    }
+
+    private fun clearFeed() = feedAdapter.clearList()
+
     private fun updateFeed(state: Success) {
-        (recyclerView.adapter as FeedAdapter).update(state.data.toSet())
+        with (state.data) {
+            if (this.isEmpty()) showNoResultDialog()
+
+            feedAdapter.update(this.toSet())
+        }
+    }
+
+    private fun showNoResultDialog() {
+        createAlertDialog(
+            title = R.string.feed_no_results,
+            message = R.string.feed_try_new_keywords
+        )?.show()
     }
 
     private fun showErrorDialog(state: Error) {
         when (state.error) {
-            is BadRequestException -> toastGenericErrorMessage()
-            is UnauthorizedException -> toastGenericErrorMessage()
-            is NotFoundException -> toastGenericErrorMessage()
-            is RequestTimeoutException -> toastGenericErrorMessage()
-            is UnknownHostException -> toastConnectionErrorMessage()
+            is MyBadException -> showErrorDialog(message = R.string.error_my_bad)
+            is ServiceInstabilityException -> showErrorDialog(message = R.string.error_service_instability)
+            is TimeoutException -> showErrorDialog(message = R.string.error_no_connection)
+            is IOException -> showErrorDialog(message = R.string.error_no_connection)
+            else -> showErrorDialog()
         }
     }
-
-    private fun toastGenericErrorMessage() {
-        Toast.makeText(
-            context,
-            getString(R.string.generic_error),
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun toastConnectionErrorMessage() {
-        Toast.makeText(
-            context,
-            getString(R.string.no_connection_error),
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun clearFeed() = (recyclerView.adapter as FeedAdapter).clearList()
-
-    private fun toggleLoading(state: FeedState) = if (state == Loading) Unit else Unit
 
     override fun onPause() {
         super.onPause()
