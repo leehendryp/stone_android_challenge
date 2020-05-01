@@ -1,4 +1,4 @@
-package com.leehendryp.stoneandroidchallenge.presentation
+package com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel
 
 import com.leehendryp.stoneandroidchallenge.feed.domain.model.Joke
 

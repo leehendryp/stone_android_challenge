@@ -1,10 +1,13 @@
-package com.leehendryp.stoneandroidchallenge.presentation
+package com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.leehendryp.stoneandroidchallenge.core.extensions.observeOnMain
 import com.leehendryp.stoneandroidchallenge.core.extensions.subscribeOnIO
 import com.leehendryp.stoneandroidchallenge.feed.domain.usecases.SearchJokeUseCase
-import com.leehendryp.stoneandroidchallenge.presentation.FeedState.Default
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Default
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Error
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Loading
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Success
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.subjects.BehaviorSubject
@@ -22,11 +25,11 @@ class FeedViewModel @Inject constructor(
             searchJokeUseCase.execute(query)
                 .subscribeOnIO()
                 .observeOnMain()
-                .doOnSubscribe { state(FeedState.Loading) }
+                .doOnSubscribe { state(Loading) }
                 .doFinally { state(Default) }
                 .subscribeBy(
-                    onSuccess = { jokeList -> state(FeedState.Success(jokeList)) },
-                    onError = { error -> state(FeedState.Error(error)) }
+                    onSuccess = { jokeList -> state(Success(jokeList)) },
+                    onError = { error -> state(Error(error)) }
                 )
         )
     }
