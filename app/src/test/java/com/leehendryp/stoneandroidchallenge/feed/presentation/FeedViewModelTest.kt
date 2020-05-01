@@ -1,13 +1,15 @@
-package com.leehendryp.stoneandroidchallenge.presentation
+package com.leehendryp.stoneandroidchallenge.feed.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.leehendryp.stoneandroidchallenge.core.DTOs
 import com.leehendryp.stoneandroidchallenge.core.RxUnitTest
 import com.leehendryp.stoneandroidchallenge.feed.domain.usecases.SearchJokeUseCase
-import com.leehendryp.stoneandroidchallenge.presentation.FeedState.Default
-import com.leehendryp.stoneandroidchallenge.presentation.FeedState.Error
-import com.leehendryp.stoneandroidchallenge.presentation.FeedState.Loading
-import com.leehendryp.stoneandroidchallenge.presentation.FeedState.Success
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Default
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Error
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Loading
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Success
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedViewModel
 import io.mockk.every
 import io.mockk.spyk
 import io.mockk.verifyOrder
@@ -32,7 +34,11 @@ class FeedViewModelTest : RxUnitTest() {
     fun `set up`() {
         searchJokeUseCase = spyk()
         compositeDisposable = spyk()
-        viewModel = FeedViewModel(compositeDisposable, searchJokeUseCase)
+        viewModel =
+            FeedViewModel(
+                compositeDisposable,
+                searchJokeUseCase
+            )
         initStateObserver()
     }
 
