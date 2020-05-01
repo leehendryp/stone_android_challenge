@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 // FIXME Lee April 27, 2020: as of now, there's not Room integration with RxJava3
@@ -16,6 +17,14 @@ fun io.reactivex.Completable.asV3Completable(): Completable =
 
 fun <T> io.reactivex.Flowable<T>.asV3Flowable(): Flowable<T> =
     `as`(RxJavaBridge.toV3Flowable())
+
+fun <T : Any> Observable<out T>.subscribeOnIO(): Observable<out T> {
+    return subscribeOn(Schedulers.io())
+}
+
+fun <T : Any> Observable<out T>.observeOnMain(): Observable<out T> {
+    return observeOn(AndroidSchedulers.mainThread())
+}
 
 fun Completable.subscribeOnIO(): Completable =
     subscribeOn(Schedulers.io())
