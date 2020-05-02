@@ -1,7 +1,6 @@
 package com.leehendryp.stoneandroidchallenge.core
 
 import com.leehendryp.stoneandroidchallenge.feed.data.entities.JokeResponse
-import com.leehendryp.stoneandroidchallenge.feed.data.entities.ResultResponse
 import com.leehendryp.stoneandroidchallenge.feed.data.toJoke
 import com.leehendryp.stoneandroidchallenge.feed.data.toRoomJoke
 import com.leehendryp.stoneandroidchallenge.feed.domain.model.Joke
@@ -42,18 +41,6 @@ object DTOs {
         jokeOneResponse,
         jokeTwoResponse,
         jokeThreeResponse
-    )
-
-    val incorrectJokeResponses: List<JokeResponse> = listOf()
-
-    val correctResultResponse = ResultResponse(
-        jokeList = correctJokeResponses,
-        total = correctJokeResponses.size
-    )
-
-    val incorrectResultResponse = ResultResponse(
-        jokeList = incorrectJokeResponses,
-        total = incorrectJokeResponses.size
     )
 
     val jokes = listOf(

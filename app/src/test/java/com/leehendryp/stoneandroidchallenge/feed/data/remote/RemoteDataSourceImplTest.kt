@@ -3,6 +3,8 @@ package com.leehendryp.stoneandroidchallenge.feed.data.remote
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.leehendryp.stoneandroidchallenge.core.DTOs
 import com.leehendryp.stoneandroidchallenge.core.MyBadException
+import com.leehendryp.stoneandroidchallenge.core.ResponseType.CLIENT_ERROR
+import com.leehendryp.stoneandroidchallenge.core.ResponseType.SERVER_ERROR
 import com.leehendryp.stoneandroidchallenge.core.ResponseType.SUCCESS
 import com.leehendryp.stoneandroidchallenge.core.RxUnitTest
 import com.leehendryp.stoneandroidchallenge.core.ServiceInstabilityException
@@ -52,7 +54,7 @@ class RemoteDataSourceImplTest : RxUnitTest() {
 
     @Test
     fun `should emit MyBadException upon improper request to API`() {
-        apiServer.setResponse(400)
+        apiServer.setResponse(CLIENT_ERROR)
 
         remoteDataSource.search("")
             .test()
@@ -62,7 +64,7 @@ class RemoteDataSourceImplTest : RxUnitTest() {
 
     @Test
     fun `should emit ServiceInstabilityException upon API instability`() {
-        apiServer.setResponse(500)
+        apiServer.setResponse(SERVER_ERROR)
 
         remoteDataSource.search("")
             .test()

@@ -46,7 +46,7 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun prdovideDao(database: JokeDatabase): RoomJokeDao = database.roomJokeDao()
+    fun provideDao(database: JokeDatabase): RoomJokeDao = database.roomJokeDao()
 
     @Provides
     fun provideRemoteDataSource(api: JokesApi): RemoteDataSource = RemoteDataSourceImpl(api)

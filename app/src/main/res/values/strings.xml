@@ -3,7 +3,6 @@
     <string name="app_title">Chuck Norris Facts</string>
 
     <string name="feed_share_button">Share button</string>
-    <string name="feed_background_message">Your search results\nwill appear here</string>
     <string name="feed_no_results">No results</string>
     <string name="feed_try_new_keywords">Please, try again but with different words.</string>
 
