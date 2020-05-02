@@ -15,4 +15,6 @@
     <string name="error_service_instability">It seems our servers are facing issues right now. Please, try again later.</string>
     <string name="error_no_connection">Please, check your internet connection and try again.</string>
     <string name="feed_standard_message">Your search results\n will be shown here</string>
+
+    <string name="share_intent_title">Share this surprising fact</string>
 </resources>
