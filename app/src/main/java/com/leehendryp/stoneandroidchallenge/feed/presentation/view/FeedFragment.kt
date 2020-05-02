@@ -83,7 +83,11 @@ class FeedFragment : BaseFragment(), FreeTextSearcher {
             feedAdapter = FeedAdapter(
                 context,
                 mutableSetOf(),
-                onClickShare = { joke -> startShareIntent(joke.value) }
+                onClickShare = { joke ->
+                    startShareIntent(
+                        String.format(getString(R.string.share_intent_message), joke.url)
+                    )
+                }
             )
         }
 

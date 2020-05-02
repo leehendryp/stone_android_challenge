@@ -11,5 +11,6 @@ data class RoomJoke(
     val id: Int? = null,
     @NonNull @ColumnInfo(name = "categories") val categories: List<String>,
     @NonNull @ColumnInfo(name = "updated_at") val updatedAt: String,
+    @NonNull @ColumnInfo(name = "url") val url: String,
     @NonNull @ColumnInfo(name = "value") val value: String
 )
