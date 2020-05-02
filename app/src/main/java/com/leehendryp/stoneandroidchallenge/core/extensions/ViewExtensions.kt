@@ -33,6 +33,7 @@ fun SearchView.doOnQuerySubmit(block: (String) -> Unit) {
     setOnQueryTextListener(object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             query?.let { block(it) }
+            clearFocus()
             return true
         }
 
