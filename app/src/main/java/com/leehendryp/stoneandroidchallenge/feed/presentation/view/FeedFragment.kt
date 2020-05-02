@@ -1,5 +1,8 @@
 package com.leehendryp.stoneandroidchallenge.feed.presentation.view
 
+import android.content.Intent
+import android.content.Intent.ACTION_SEND
+import android.content.Intent.EXTRA_TEXT
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +37,10 @@ import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 
 class FeedFragment : BaseFragment(), FreeTextSearcher {
+    companion object {
+        private const val SHARE_TYPE = "text/plain"
+    }
+
     private lateinit var binding: FragmentFeedBinding
 
     private lateinit var feedAdapter: FeedAdapter
@@ -76,7 +83,7 @@ class FeedFragment : BaseFragment(), FreeTextSearcher {
             feedAdapter = FeedAdapter(
                 context,
                 mutableSetOf(),
-                onClickShare = { Unit }
+                onClickShare = { joke -> startShareIntent(joke.value) }
             )
         }
 
@@ -84,6 +91,19 @@ class FeedFragment : BaseFragment(), FreeTextSearcher {
             adapter = feedAdapter
             layoutManager = LinearLayoutManager(context)
         }
+    }
+
+    private fun startShareIntent(value: String) {
+        val sendIntent: Intent = Intent().apply {
+            action = ACTION_SEND
+            putExtra(EXTRA_TEXT, value)
+            type = SHARE_TYPE
+        }
+
+        val shareIntent = Intent.createChooser(
+            sendIntent, context?.getString(R.string.share_intent_title)
+        )
+        startActivity(shareIntent)
     }
 
     override fun onResume() {
