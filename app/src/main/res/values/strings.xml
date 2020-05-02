@@ -17,4 +17,5 @@
     <string name="feed_standard_message">Your search results\n will be shown here</string>
 
     <string name="share_intent_title">Share this surprising fact</string>
+    <string name="share_intent_message">Hey, did you know that? %1$s </string>
 </resources>

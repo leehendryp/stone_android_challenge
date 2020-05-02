@@ -13,17 +13,20 @@ fun List<JokeResponse>.toJokeList(): List<Joke> {
 fun JokeResponse.toJoke() = Joke(
     categories = categories ?: listOf(),
     updatedAt = updatedAt ?: "",
+    url = url ?: "",
     value = value ?: ""
 )
 
 fun RoomJoke.toJoke() = Joke(
     categories = categories,
     updatedAt = updatedAt,
+    url = url,
     value = value
 )
 
 fun Joke.toRoomJoke() = RoomJoke(
     categories = categories,
     updatedAt = updatedAt,
+    url = url,
     value = value
 )
