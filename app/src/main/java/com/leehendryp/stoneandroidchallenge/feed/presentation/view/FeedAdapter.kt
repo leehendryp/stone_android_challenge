@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.leehendryp.stoneandroidchallenge.R
 import com.leehendryp.stoneandroidchallenge.feed.domain.model.Joke
+import kotlinx.android.synthetic.main.item_feed.view.icon_share
 import kotlinx.android.synthetic.main.item_feed.view.text_joke_category
 import kotlinx.android.synthetic.main.item_feed.view.text_joke_value
 
@@ -31,7 +32,7 @@ class FeedAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentJoke = jokes.toList()[position]
         holder.bind(currentJoke)
-        holder.itemView.setOnClickListener { onClickShare(currentJoke) }
+        holder.itemView.icon_share.setOnClickListener { onClickShare(currentJoke) }
     }
 
     fun update(jokes: Set<Joke>) {
