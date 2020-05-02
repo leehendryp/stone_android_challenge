@@ -20,6 +20,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_feed" />
 
+        <TextView
+            android:id="@+id/text_standard_message"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/feed_standard_message"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <FrameLayout
             android:id="@+id/container_loading_wheel"
             android:layout_width="match_parent"

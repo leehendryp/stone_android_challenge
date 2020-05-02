@@ -15,9 +15,11 @@ import com.leehendryp.stoneandroidchallenge.core.MyBadException
 import com.leehendryp.stoneandroidchallenge.core.ServiceInstabilityException
 import com.leehendryp.stoneandroidchallenge.core.StoneChallengeApplication
 import com.leehendryp.stoneandroidchallenge.core.extensions.fadeIn
+import com.leehendryp.stoneandroidchallenge.core.extensions.gone
 import com.leehendryp.stoneandroidchallenge.core.extensions.observeOnMain
 import com.leehendryp.stoneandroidchallenge.core.extensions.subscribeOnIO
 import com.leehendryp.stoneandroidchallenge.core.extensions.vanish
+import com.leehendryp.stoneandroidchallenge.core.extensions.visible
 import com.leehendryp.stoneandroidchallenge.databinding.FragmentFeedBinding
 import com.leehendryp.stoneandroidchallenge.feed.presentation.FreeTextSearcher
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState
@@ -121,7 +123,12 @@ class FeedFragment : BaseFragment(), FreeTextSearcher {
 
     private fun updateFeed(state: Success) {
         with(state.data) {
-            if (this.isEmpty()) showNoResultDialog()
+            if (this.isEmpty()) {
+                showNoResultDialog()
+                binding.textStandardMessage.visible()
+            } else {
+                binding.textStandardMessage.gone()
+            }
 
             feedAdapter.update(this.toSet())
         }
