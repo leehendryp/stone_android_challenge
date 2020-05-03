@@ -4,6 +4,10 @@ Practical challenge completed as part of the recruiting process of Stone Pagamen
 
 The app consists of a Chuck Norris' fact searcher that allows users to share facts with other apps.
 
+# Base Flowchart
+
+![Base Flowchart](stone_challenge_-_feature_flowchart.png)
+
 # Requirements  
 
 On your computer:
