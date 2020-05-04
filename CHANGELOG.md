@@ -6,5 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- Replace Maybes with Flowables to allow back pressure on searches
 - Changed README.md to present better the project
 - Text showing on the toolbar is now the the one on the wireframe
