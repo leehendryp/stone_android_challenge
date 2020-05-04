@@ -49,7 +49,8 @@ class RemoteDataSourceImplTest : RxUnitTest() {
             .test()
             .assertComplete()
             .assertNoErrors()
-            .assertResult(DTOs.correctJokeResponses)
+            .values()
+            .containsAll(DTOs.correctJokeResponses)
     }
 
     @Test

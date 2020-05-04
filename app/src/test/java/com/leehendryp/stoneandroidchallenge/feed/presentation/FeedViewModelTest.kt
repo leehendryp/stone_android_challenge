@@ -13,7 +13,7 @@ import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedView
 import io.mockk.every
 import io.mockk.spyk
 import io.mockk.verifyOrder
-import io.reactivex.rxjava3.core.Maybe
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.junit.Before
@@ -49,7 +49,7 @@ class FeedViewModelTest : RxUnitTest() {
 
     @Test
     fun `should emit success state with joke list data upon successful use case execution`() {
-        every { searchJokeUseCase.execute(any()) } returns Maybe.just(DTOs.jokes)
+        every { searchJokeUseCase.execute(any()) } returns DTOs.jokeFlowable
 
         viewModel.search("")
 
@@ -65,7 +65,7 @@ class FeedViewModelTest : RxUnitTest() {
     fun `should emit error state with error data upon failed use case execution`() {
         val error = Throwable()
 
-        every { searchJokeUseCase.execute(any()) } returns Maybe.error(error)
+        every { searchJokeUseCase.execute(any()) } returns Flowable.error(error)
 
         viewModel.search("")
 

@@ -12,7 +12,6 @@ import io.mockk.mockk
 import io.mockk.spyk
 import io.mockk.verify
 import io.mockk.verifyOrder
-import io.reactivex.rxjava3.core.Maybe
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -39,13 +38,14 @@ class JokeRepositoryImplTest : RxUnitTest() {
     fun `should fetch data from remote source if network is available`() {
         every { networkUtils.isInternetAvailable() } returns true
 
-        every { remoteSource.search(any()) } returns Maybe.just(DTOs.correctJokeResponses)
+        every { remoteSource.search(any()) } returns DTOs.jokeResponseFlowable
 
         repo.search("")
             .test()
             .assertComplete()
             .assertNoErrors()
-            .assertResult(DTOs.jokes)
+            .values()
+            .containsAll(DTOs.jokes)
 
         verify(exactly = 1) { remoteSource.search(any()) }
         verify(exactly = 0) { localSource.search(any()) }
@@ -61,7 +61,8 @@ class JokeRepositoryImplTest : RxUnitTest() {
             .test()
             .assertComplete()
             .assertNoErrors()
-            .assertResult(DTOs.jokes)
+            .values()
+            .containsAll(DTOs.jokes)
 
         verify(exactly = 0) { remoteSource.search(any()) }
         verify(exactly = 1) { localSource.search(any()) }
@@ -71,7 +72,7 @@ class JokeRepositoryImplTest : RxUnitTest() {
     fun `should save data locally after remote data fetch if network is available`() {
         every { networkUtils.isInternetAvailable() } returns true
 
-        every { remoteSource.search(any()) } returns Maybe.just(DTOs.correctJokeResponses)
+        every { remoteSource.search(any()) } returns DTOs.jokeResponseFlowable
 
         repo.search("")
             .test()
