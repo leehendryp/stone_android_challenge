@@ -4,7 +4,6 @@ import hu.akarnokd.rxjava3.bridge.RxJavaBridge
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -32,8 +31,5 @@ fun Completable.subscribeOnIO(): Completable =
 fun <T : Any> Flowable<out T>.subscribeOnIO(): Flowable<out T> =
     subscribeOn(Schedulers.io())
 
-fun <T : Any> Maybe<out T>.subscribeOnIO(): Maybe<out T> =
-    subscribeOn(Schedulers.io())
-
-fun <T : Any> Maybe<out T>.observeOnMain(): Maybe<out T> =
+fun <T : Any> Flowable<out T>.observeOnMain(): Flowable<out T> =
     observeOn(AndroidSchedulers.mainThread())
