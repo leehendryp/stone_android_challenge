@@ -55,6 +55,12 @@ object DTOs {
         jokeThreeResponse.toJoke().toRoomJoke()
     )
 
+    val jokeResponseFlowable: Flowable<JokeResponse> = Flowable.just(
+        jokeOneResponse,
+        jokeTwoResponse,
+        jokeThreeResponse
+    )
+
     val jokeFlowable: Flowable<Joke> = Flowable.just(
         jokeOneResponse.toJoke(),
         jokeTwoResponse.toJoke(),
