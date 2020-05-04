@@ -17,6 +17,9 @@ class FeedViewModel @Inject constructor(
     private val compositeDisposable: CompositeDisposable,
     private val searchJokeUseCase: SearchJokeUseCase
 ) : ViewModel() {
+    companion object {
+        private const val BUFFER_COUNT = 20
+    }
 
     val state: BehaviorSubject<FeedState> by lazy {
         BehaviorSubject.create<FeedState>()
@@ -30,8 +33,9 @@ class FeedViewModel @Inject constructor(
                 .observeOnMain()
                 .doOnSubscribe { state(Loading) }
                 .doFinally { state(Default) }
+                .buffer(BUFFER_COUNT)
                 .subscribeBy(
-                    onSuccess = { jokeList -> state(Success(jokeList)) },
+                    onNext = { jokeList -> state(Success(jokeList)) },
                     onError = { error -> state(Error(error)) }
                 )
         )
