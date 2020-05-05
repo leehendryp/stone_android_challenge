@@ -26,6 +26,7 @@ import com.leehendryp.stoneandroidchallenge.core.extensions.visible
 import com.leehendryp.stoneandroidchallenge.databinding.FragmentFeedBinding
 import com.leehendryp.stoneandroidchallenge.feed.presentation.FreeTextSearcher
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState
+import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Default
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Error
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Loading
 import com.leehendryp.stoneandroidchallenge.feed.presentation.viewmodel.FeedState.Success
@@ -132,6 +133,7 @@ class FeedFragment : BaseFragment(), FreeTextSearcher {
             Loading -> clearFeed()
             is Success -> updateFeed(state)
             is Error -> showErrorDialog(state)
+            is Default -> showNoResultFeedback(state.shouldWarnNoResult)
         }
     }
 
@@ -146,16 +148,7 @@ class FeedFragment : BaseFragment(), FreeTextSearcher {
     private fun clearFeed() = feedAdapter.clearList()
 
     private fun updateFeed(state: Success) {
-        with(state.data) {
-            if (this.isEmpty()) {
-                showNoResultDialog()
-                binding.textStandardMessage.visible()
-            } else {
-                binding.textStandardMessage.gone()
-            }
-
-            feedAdapter.update(this.toSet())
-        }
+        feedAdapter.update(state.data.toSet())
     }
 
     private fun showNoResultDialog() {
@@ -172,6 +165,17 @@ class FeedFragment : BaseFragment(), FreeTextSearcher {
             is TimeoutException -> showErrorDialog(message = R.string.error_no_connection)
             is IOException -> showErrorDialog(message = R.string.error_no_connection)
             else -> showErrorDialog()
+        }
+    }
+
+    private fun showNoResultFeedback(show: Boolean) {
+        binding.textStandardMessage.apply {
+            if (show) {
+                visible()
+                showNoResultDialog()
+            } else {
+                gone()
+            }
         }
     }
 
