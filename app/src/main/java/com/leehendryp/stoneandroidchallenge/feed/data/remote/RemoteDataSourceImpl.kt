@@ -16,5 +16,7 @@ class RemoteDataSourceImpl @Inject constructor(private val api: JokesApi) : Remo
             }
     }
 
-    private fun Response<ResultResponse>.retrieveJokeList() = body()?.jokeList
+    private fun Response<ResultResponse>.retrieveJokeList(): List<JokeResponse> {
+        return body()?.jokeList ?: listOf()
+    }
 }
