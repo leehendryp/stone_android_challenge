@@ -54,10 +54,9 @@ class FeedViewModelTest : RxUnitTest() {
         viewModel.search("")
 
         verifyOrder {
-            stateObserver.onNext(Default)
             stateObserver.onNext(Loading)
             stateObserver.onNext(Success(DTOs.jokes))
-            stateObserver.onNext(Default)
+            stateObserver.onNext(Default(true))
         }
     }
 
@@ -70,10 +69,36 @@ class FeedViewModelTest : RxUnitTest() {
         viewModel.search("")
 
         verifyOrder {
-            stateObserver.onNext(Default)
             stateObserver.onNext(Loading)
             stateObserver.onNext(Error(error))
-            stateObserver.onNext(Default)
+            stateObserver.onNext(Default(false))
+        }
+    }
+
+    @Test
+    fun `should emit default state with warning for no result upon successful use case execution with no results`() {
+        every { searchJokeUseCase.execute(any()) } returns Flowable.empty()
+
+        viewModel.search("")
+
+        verifyOrder {
+            stateObserver.onNext(Loading)
+            stateObserver.onNext(Default(true))
+        }
+    }
+
+    @Test
+    fun `should emit default state without warning for no result upon failed use case execution`() {
+        val error = Throwable()
+
+        every { searchJokeUseCase.execute(any()) } returns Flowable.error(error)
+
+        viewModel.search("")
+
+        verifyOrder {
+            stateObserver.onNext(Loading)
+            stateObserver.onNext(Error(error))
+            stateObserver.onNext(Default(false))
         }
     }
 }
