@@ -4,7 +4,8 @@
 
     <string name="feed_share_button">Share button</string>
     <string name="feed_no_results">No results</string>
-    <string name="feed_try_new_keywords">Please, try again but with different words.</string>
+    <string name="feed_try_new_keywords">Please, try again with different words.</string>
+    <string name="feed_standard_message">Your search results\n will be shown here</string>
 
     <string name="item_category_label_uncategorized">Uncategorized</string>
 
@@ -13,7 +14,6 @@
     <string name="error_my_bad">Oops, that\'s embarrassing… My bad. If the issue persists, try updating the app. </string>
     <string name="error_service_instability">It seems our servers are facing issues right now. Please, try again later.</string>
     <string name="error_no_connection">Please, check your internet connection and try again.</string>
-    <string name="feed_standard_message">Your search results\n will be shown here</string>
 
     <string name="share_intent_title">Share this surprising fact</string>
     <string name="share_intent_message">Hey, did you know that? %1$s </string>
