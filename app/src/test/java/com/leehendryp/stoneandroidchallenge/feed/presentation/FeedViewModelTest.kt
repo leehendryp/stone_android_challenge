@@ -56,7 +56,7 @@ class FeedViewModelTest : RxUnitTest() {
         verifyOrder {
             stateObserver.onNext(Loading)
             stateObserver.onNext(Success(DTOs.jokes))
-            stateObserver.onNext(Default(true))
+            stateObserver.onNext(Default(false))
         }
     }
 

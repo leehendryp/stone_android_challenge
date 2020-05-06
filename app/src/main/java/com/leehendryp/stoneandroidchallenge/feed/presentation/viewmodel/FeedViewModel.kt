@@ -36,7 +36,10 @@ class FeedViewModel @Inject constructor(
                 .doFinally { state(Default(shouldWarnNoResult)) }
                 .buffer(BUFFER_COUNT)
                 .subscribeBy(
-                    onNext = { jokeList -> state(Success(jokeList)) },
+                    onNext = { jokeList ->
+                        state(Success(jokeList))
+                        warnNoResult(false)
+                    },
                     onError = { error ->
                         state(Error(error))
                         warnNoResult(false)
