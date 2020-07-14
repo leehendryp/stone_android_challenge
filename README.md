@@ -32,6 +32,10 @@ On your smartphone:
 
 # Resources used on this project:
 
+* **GitHub Projects** - automated KanBan board for task management;
+* **GitHub Issues** - project issue management;
+* **GitHub Actions** - CI pipeline;
+
 * **Kotlin** - modern programming language for native Android development;
 * **Clean Architecture** - software design principles that allow for SOLID layering of the app, making the app scalable, agile and robust;
 * **Test-Driven Development** - technique that allows abstractions to be readily tested, as a way to ensure robust feature development, allowing failures to happen as soon as possible, so they can be fixed before detailed implementation;
